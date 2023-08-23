@@ -567,10 +567,10 @@ func LogConfigParams(config *Config) {
 
 // retrieve a secret value from environment variable or secret on the FS
 func getSecret(label string) string {
-	bindPassword := os.Getenv(strings.ToUpper(label))
+	secret := os.Getenv(strings.ToUpper(label))
 
-	if bindPassword != "" {
-		return bindPassword
+	if secret != "" {
+		return secret
 	}
 
 	b, err := os.ReadFile(fmt.Sprintf("/run/secrets/%s", strings.ToLower(label)))
