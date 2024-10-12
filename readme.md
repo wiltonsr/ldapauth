@@ -163,6 +163,23 @@ Needs `traefik` >= [`v2.8.5`](https://github.com/traefik/traefik/releases/tag/v2
 _Optional, Default: `super-secret-key`_
 
 The key used to encrypt session cookie information. You `must` use a strong value here.
+You can also use a secret or a environment variable, see `cacheKeyLabel`.
+
+
+#### `cacheKeyLabel`
+
+_Optional, Default: `"LDAP_AUTH_CACHE_KEY"`_
+
+Only used when `cacheKey` is not set.
+This allow the user to choose the name or the environment variable or the file name.
+To be consistent with other traefik plugins, the environment variable should be upper case, and file name lower case.
+
+Example:
+cacheKeyLabel=my_cache_key_label
+The environment variable `MY_CACHE_KEY_LABEL` or a file containing the password should be mounted to `/run/secrets/my_cache_key_label`.
+Typically, with docker you can use a secret named `my_cache_key_label`.
+
+The environment variable will be used if both options are set.
 
 ##### `startTLS`
 _Optional, Default: `false`_
@@ -255,6 +272,21 @@ The domain name to bind to in order to authenticate to the LDAP server when runn
 _Optional, Default: `""`_
 
 The password corresponding to the `bindDN` specified when running in [`Search Mode`](#search-mode), is used in order to authenticate to the LDAP server.
+You can also use a secret or a environment variable, see `bindPasswordLabel`.
+
+##### `bindPasswordLabel`
+_Optional, Default: `"LDAP_AUTH_BIND_PASSWORD"`_
+
+Only used when `bindDN` is not empty, and `bindPassword` is not set.
+This allow the user to choose the name or the environment variable or the file name.
+To be consistent with other traefik plugins, the environment variable should be upper case, and file name lower case.
+
+Example:
+bindPasswordLabel=my_bind_password_label
+The environment variable `MY_BIND_PASSWORD_LABEL` or a file containing the password should be mounted to `/run/secrets/my_bind_password_label`.
+Typically, with docker you can use a secret named `my_bind_password_label`.
+
+The environment variable will be used if both options are set.
 
 ##### `forwardUsername`
 
